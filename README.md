@@ -1,92 +1,89 @@
 # GadgetBekas
 
-Toko HP bekas dengan katalog publik dan halaman admin untuk mengelola produk, dibuat dengan **Laravel 12**. Pembeli menelusuri unit, melihat grade dan kesehatan baterai, lalu bertanya lewat WhatsApp. Admin mengelola stok, foto, harga modal, dan status tiap unit.
+Toko HP bekas online: katalog yang jujur untuk pembeli, dan halaman admin yang praktis untuk penjual. Dibuat dengan Laravel 12.
 
-> **Status:** dijalankan dan diuji. 21 tes lulus di Windows (PHP 8.3, Laravel 12.x) dan di Linux (PHP 8.3), migrasi dan seed berjalan, serta katalog dan admin dibuka di browser. Tangkapan layar di bawah diambil dari aplikasi yang berjalan dengan data contoh fiktif.
+> Gambar di bawah diambil dari aplikasi yang berjalan dengan data contoh fiktif. 21 tes otomatis lulus di Windows dan Linux (PHP 8.3).
 
-## Tampilan
+![Katalog](docs/screenshots/01-katalog.png)
 
-| Katalog | Filter merek, urut termurah |
+## Kenapa dibuat
+
+Orang yang menjual HP bekas biasanya memakai chat dan status WhatsApp. Foto tercecer, harga berubah-ubah, dan pembeli harus bertanya satu-satu: baterainya berapa persen, ada garansi atau tidak, masih ada atau sudah laku. Penjualnya sendiri sulit melacak stok dan modal.
+
+GadgetBekas memindahkan itu ke satu katalog. Pembeli langsung melihat grade, kesehatan baterai, dan kelengkapan tiap unit, lalu bertanya lewat tombol WhatsApp yang sudah berisi nama unit dan harganya. Penjual mengelola stok, foto, dan harga modal dari satu halaman admin.
+
+## Apa yang jadi lebih mudah
+
+**Untuk pembeli**
+- Cari dan saring berdasarkan merek, grade, harga maksimal, atau baterai terbaik.
+- Informasi lengkap di halaman unit, tanpa perlu bertanya satu-satu.
+- Satu klik ke WhatsApp penjual, pesan sudah terisi.
+
+**Untuk penjual**
+- Lihat jumlah unit tersedia, nilai stok, serta omzet dan laba bulan ini.
+- Tandai terjual atau dipesan dengan satu tombol. Tanggal terjual terisi sendiri.
+- Harga modal dan IMEI hanya terlihat di admin, tidak pernah tampil di katalog.
+
+## Tampilan katalog
+
+| Semua unit | Filter merek, termurah |
 |---|---|
 | ![Katalog](docs/screenshots/01-katalog.png) | ![Filter](docs/screenshots/02-filter.png) |
 
-| Halaman produk | Admin: daftar produk |
+| Grade A, baterai terbaik | Halaman unit |
 |---|---|
-| ![Detail](docs/screenshots/03-detail.png) | ![Admin produk](docs/screenshots/06-produk-admin.png) |
+| ![Grade A](docs/screenshots/09-grade-a-baterai.png) | ![Detail](docs/screenshots/10-detail-wa.png) |
 
-| Admin: ringkasan | Admin: tambah produk |
+| Di ponsel (katalog) | Di ponsel (unit) |
 |---|---|
-| ![Dashboard](docs/screenshots/05-dashboard.png) | ![Tambah](docs/screenshots/07-tambah-produk.png) |
+| ![Mobile katalog](docs/screenshots/08-mobile.png) | ![Mobile unit](docs/screenshots/15-mobile-detail.png) |
 
-## Fitur
+![Halaman unit lengkap](docs/screenshots/03-detail.png)
 
-**Katalog publik**
-- Daftar unit dengan pencarian, filter merek, kondisi (grade A/B/C), harga maksimal, dan pengurutan (terbaru, termurah, termahal, baterai terbaik), dengan halaman bernomor.
-- Halaman produk: galeri foto, grade, kesehatan baterai, memori, kelengkapan, garansi toko, dan tombol **Tanya lewat WhatsApp** yang sudah berisi nama unit, harga, dan tautannya.
-- Unit *dipesan* tetap tampil dengan label, unit *terjual* hilang dari katalog tetapi tautannya masih terbuka dengan pemberitahuan.
-- IMEI dan harga modal tidak pernah tampil di sisi publik.
-- Unit tanpa foto memakai siluet HP berwarna sesuai merek.
+Unit tanpa foto memakai siluet HP berwarna sesuai merek, jadi katalog tetap rapi.
 
-**Admin** (`/admin`, wajib masuk)
-- Ringkasan: jumlah unit tersedia dan dipesan, nilai jual stok beserta modalnya, serta omzet dan laba kotor bulan ini.
-- Produk: tambah, ubah, hapus; unggah sampai 8 foto (JPG, PNG, WebP, maks. 4 MB), hapus foto satuan, cari dengan merek, model, atau IMEI, filter status.
-- Tombol cepat **Tandai terjual**, **Dipesan**, **Jadikan tersedia**. Tanggal terjual terisi otomatis dan tidak tertimpa saat unit yang sudah terjual diubah.
-- Validasi dengan pesan bahasa Indonesia, slug unik otomatis.
+## Tampilan admin
 
-## Menjalankan
+| Masuk | Ringkasan |
+|---|---|
+| ![Masuk](docs/screenshots/04-masuk.png) | ![Dashboard](docs/screenshots/05-dashboard.png) |
 
-Butuh PHP 8.2+ (ekstensi `mbstring`, `pdo_sqlite`, `gd`, `fileinfo`) dan Composer.
+| Daftar produk | Cari produk |
+|---|---|
+| ![Produk](docs/screenshots/06-produk-admin.png) | ![Cari](docs/screenshots/11-admin-cari.png) |
+
+| Tambah produk | Ubah produk |
+|---|---|
+| ![Tambah](docs/screenshots/07-tambah-produk.png) | ![Ubah](docs/screenshots/12-ubah-produk.png) |
+
+Tombol cepat **Tandai terjual**, **Dipesan**, dan **Jadikan tersedia** ada di tiap baris.
+
+![Setelah ditandai terjual](docs/screenshots/13-tandai-terjual.png)
+
+Angka di ringkasan ikut berubah setelah ada unit yang terjual.
+
+![Ringkasan setelah terjual](docs/screenshots/14-dashboard-setelah-terjual.png)
+
+## Mencoba
+
+Butuh PHP 8.2 atau lebih baru dan Composer.
 
 ```bash
 composer install
 cp .env.example .env
 php artisan key:generate
 touch database/database.sqlite
-php artisan migrate --seed        # skema + 18 unit contoh fiktif + akun admin
-php artisan storage:link          # agar foto yang diunggah bisa diakses
-php artisan serve                 # http://localhost:8000
+php artisan migrate --seed       # 18 unit contoh dan akun admin
+php artisan storage:link
+php artisan serve                # http://localhost:8000
 ```
 
-Masuk di `/masuk` dengan `ADMIN_EMAIL` dan `ADMIN_PASSWORD` dari `.env` (bawaan: `admin@gadgetbekas.test` / `ganti-password-ini`). **Ganti password sebelum dipakai sungguhan**, dan jalankan `db:seed` sebelum `config:cache` (atau ulangi setelahnya).
+Admin masuk di `/masuk` dengan akun dari `.env` (bawaan `admin@gadgetbekas.test` / `ganti-password-ini`; ganti sebelum dipakai sungguhan). Nomor WhatsApp, nama, dan alamat toko diatur lewat `SHOP_*` di `.env`. Tes dijalankan dengan `php vendor/bin/phpunit`.
 
-Ubah nomor WhatsApp, nama, alamat, dan jam buka toko lewat `SHOP_*` di `.env`. Nomor diisi tanpa tanda `+`, diawali kode negara (mis. `62812...`). Untuk MySQL atau PostgreSQL, ganti `DB_CONNECTION` dan isi `DB_HOST`, `DB_DATABASE`, dan seterusnya.
+## Teknologi
 
-## Pengujian
+Laravel 12, SQLite, Blade dengan CSS biasa (tanpa Vite atau npm). Admin dilindungi login dengan pembatasan percobaan, upload foto dibatasi tipe dan ukuran, dan pencarian memakai parameter terikat.
 
-```bash
-php vendor/bin/phpunit
-```
+## Kontak
 
-Ada 21 tes fitur (`tests/Feature`) dengan SQLite di memori, dengan cakupan: filter, urutan, dan pencarian katalog; unit terjual tersembunyi; IMEI dan harga modal tidak bocor; tautan WhatsApp; tamu diarahkan ke halaman masuk; login benar dan salah; tambah produk dengan foto; validasi; slug unik; status terjual mengisi dan menghapus tanggal; tanggal terjual tidak tertimpa; hapus produk dan foto membersihkan berkas; dan angka ringkasan dashboard. CI GitHub Actions menjalankannya pada tiap push.
-
-## Struktur
-
-```
-app/Http/Controllers/    CatalogController, AuthController, Admin/{Dashboard,Product,Photo}Controller
-app/Http/Requests/       ProductRequest (aturan dan pesan validasi)
-app/Models/              Product, Brand, ProductPhoto, User
-database/                migrasi, factory, seeder (stok contoh fiktif)
-resources/views/         layouts, katalog, admin, partial
-public/css/app.css       gaya tunggal tanpa langkah build (tanpa Vite/npm)
-tests/Feature/           CatalogTest, AdminTest
-```
-
-Konfigurasi memakai bawaan framework Laravel 12; hanya `config/shop.php` yang ditambahkan.
-
-## Keamanan
-
-- Rute admin dilindungi middleware `auth`; formulir memakai token CSRF; percobaan login dibatasi 10 kali per menit.
-- Upload dibatasi pada tipe gambar dan ukuran; berkas disimpan di disk `public` dengan nama acak.
-- Pencarian memakai parameter terikat dan karakter wildcard `LIKE` di-escape.
-- Hanya ada satu peran (admin). Belum ada manajemen pengguna di antarmuka; tambah akun lewat tinker atau seeder.
-
-## Batasan dan rencana
-
-- Belum ada tangkapan layar dan belum ada bukti bahwa semuanya berjalan; lihat status di atas.
-- Belum ada keranjang atau pembayaran: transaksi lewat WhatsApp dan tatap muka.
-- Foto tidak diperkecil otomatis; unggah foto yang sudah wajar ukurannya.
-- Belum ada pengurutan ulang foto dan belum ada pengelolaan merek dari antarmuka (merek diisi lewat seeder).
-
-## Lisensi
-
-MIT. Lihat [LICENSE](LICENSE).
+Ardha Febrian Muqorrobin, [asammanis89.github.io](https://asammanis89.github.io). Lisensi MIT.
