@@ -17,4 +17,4 @@ jobs:
           coverage: none
       - run: composer install --no-interaction --prefer-dist --no-progress
       - run: cp .env.example .env && php artisan key:generate
-      - run: php artisan test
+      - run: php vendor/bin/phpunit

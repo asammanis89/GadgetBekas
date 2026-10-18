@@ -40,7 +40,7 @@ Ubah nomor WhatsApp, nama, alamat, dan jam buka toko lewat `SHOP_*` di `.env`. N
 ## Pengujian
 
 ```bash
-php artisan test
+php vendor/bin/phpunit
 ```
 
 Ada 21 tes fitur (`tests/Feature`) dengan SQLite di memori, ditulis tetapi **belum dijalankan** (lihat status di atas): filter, urutan, dan pencarian katalog; unit terjual tersembunyi; IMEI dan harga modal tidak bocor; tautan WhatsApp; tamu diarahkan ke halaman masuk; login benar dan salah; tambah produk dengan foto; validasi; slug unik; status terjual mengisi dan menghapus tanggal; tanggal terjual tidak tertimpa; hapus produk dan foto membersihkan berkas; dan angka ringkasan dashboard. CI GitHub Actions menjalankannya pada tiap push.
