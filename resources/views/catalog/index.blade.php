@@ -9,7 +9,7 @@
     </section>
 
     <form class="filters" method="get" action="{{ route('catalog.index') }}">
-        <div class="wide"><label for="q">Cari</label><input id="q" name="q" value="{{ $filters['q'] }}" placeholder="mis. iPhone 12 atau Samsung"></div>
+        <div class="wide"><label for="q">Cari</label><input id="q" name="q" value="{{ $filters['q'] }}" placeholder="mis. Reno 8 atau Poco"></div>
         <div>
             <label for="merek">Merek</label>
             <select id="merek" name="merek">

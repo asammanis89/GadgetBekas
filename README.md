@@ -2,7 +2,21 @@
 
 Toko HP bekas dengan katalog publik dan halaman admin untuk mengelola produk, dibuat dengan **Laravel 12**. Pembeli menelusuri unit, melihat grade dan kesehatan baterai, lalu bertanya lewat WhatsApp. Admin mengelola stok, foto, harga modal, dan status tiap unit.
 
-> **Status: kode lengkap, tetapi belum pernah dijalankan.** Proyek ini ditulis di lingkungan yang tidak bisa mengakses Packagist, sehingga `composer install` tidak bisa dijalankan dan Laravel tidak pernah terpasang di sana. Yang sudah dilakukan hanya pemeriksaan sintaks PHP (`php -l`) pada seluruh berkas PHP. Tes, tampilan, dan migrasi belum dijalankan, dan **belum ada tangkapan layar**. Jalankan langkah di bawah dan `php artisan test` untuk memastikan; bila ada yang gagal, itu bug nyata yang perlu diperbaiki, bukan salah pemakaian.
+> **Status:** dijalankan dan diuji. 21 tes lulus di Windows (PHP 8.3, Laravel 12.x) dan di Linux (PHP 8.3), migrasi dan seed berjalan, serta katalog dan admin dibuka di browser. Tangkapan layar di bawah diambil dari aplikasi yang berjalan dengan data contoh fiktif.
+
+## Tampilan
+
+| Katalog | Filter merek, urut termurah |
+|---|---|
+| ![Katalog](docs/screenshots/01-katalog.png) | ![Filter](docs/screenshots/02-filter.png) |
+
+| Halaman produk | Admin: daftar produk |
+|---|---|
+| ![Detail](docs/screenshots/03-detail.png) | ![Admin produk](docs/screenshots/06-produk-admin.png) |
+
+| Admin: ringkasan | Admin: tambah produk |
+|---|---|
+| ![Dashboard](docs/screenshots/05-dashboard.png) | ![Tambah](docs/screenshots/07-tambah-produk.png) |
 
 ## Fitur
 
@@ -43,7 +57,7 @@ Ubah nomor WhatsApp, nama, alamat, dan jam buka toko lewat `SHOP_*` di `.env`. N
 php vendor/bin/phpunit
 ```
 
-Ada 21 tes fitur (`tests/Feature`) dengan SQLite di memori, ditulis tetapi **belum dijalankan** (lihat status di atas): filter, urutan, dan pencarian katalog; unit terjual tersembunyi; IMEI dan harga modal tidak bocor; tautan WhatsApp; tamu diarahkan ke halaman masuk; login benar dan salah; tambah produk dengan foto; validasi; slug unik; status terjual mengisi dan menghapus tanggal; tanggal terjual tidak tertimpa; hapus produk dan foto membersihkan berkas; dan angka ringkasan dashboard. CI GitHub Actions menjalankannya pada tiap push.
+Ada 21 tes fitur (`tests/Feature`) dengan SQLite di memori, dengan cakupan: filter, urutan, dan pencarian katalog; unit terjual tersembunyi; IMEI dan harga modal tidak bocor; tautan WhatsApp; tamu diarahkan ke halaman masuk; login benar dan salah; tambah produk dengan foto; validasi; slug unik; status terjual mengisi dan menghapus tanggal; tanggal terjual tidak tertimpa; hapus produk dan foto membersihkan berkas; dan angka ringkasan dashboard. CI GitHub Actions menjalankannya pada tiap push.
 
 ## Struktur
 
